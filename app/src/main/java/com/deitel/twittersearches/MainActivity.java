@@ -133,9 +133,19 @@ public class MainActivity extends ListActivity
          int position, long id) 
       {
          // get query string and create a URL representing the search
-         String tag = ((TextView) view).getText().toString();
-         String urlString = getString(R.string.searchURL) +
-            Uri.encode(savedSearches.getString(tag, ""), "UTF-8");
+          String tag = ((TextView) view).getText().toString();
+          System.err.println("info1 :"+ tag);
+          String urlString = new String();
+          String savedURL = savedSearches.getString(tag, "");
+          System.err.println("info2 :"+ savedURL);
+          if(savedURL.startsWith("http://")){
+               urlString = savedURL;
+          }else
+          {
+               urlString = getString(R.string.searchURL) +
+                      Uri.encode(savedSearches.getString(tag, ""), "UTF-8");
+          }
+
          
          // create an Intent to launch a web browser    
          Intent webIntent = new Intent(Intent.ACTION_VIEW, 
